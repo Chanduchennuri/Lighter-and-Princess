@@ -162,58 +162,14 @@ body::-webkit-scrollbar,
 
 
 /* ============================================================
-   EXPANDED PANEL
-   ============================================================ */
-
-.reminder-panel {
-  position: relative;
-
-  display: block;
-
-  width: 320px;
-  height: 235px;
-
-  margin: 0;
-  padding: 16px;
-
-  overflow: hidden;
-
-  box-sizing: border-box;
-
-  border:
-    1px solid
-    rgba(0, 0, 0, 0.10);
-
-  border-radius: 16px;
-
-  background: #ffffff;
-
-  box-shadow:
-    0 20px 60px rgba(0, 0, 0, 0.20);
-
-  scrollbar-width: none;
-}
-
-
-.reminder-panel::-webkit-scrollbar {
-  width: 0;
-  height: 0;
-
-  display: none;
-}
-
-
-/* ============================================================
    PREVENT INTERNAL FORM CONTROLS FROM CREATING SCROLLBARS
    ============================================================ */
 
-.reminder-panel *,
 .reminder-root * {
   scrollbar-width: none;
 }
 
 
-.reminder-panel *::-webkit-scrollbar,
 .reminder-root *::-webkit-scrollbar {
   width: 0;
   height: 0;

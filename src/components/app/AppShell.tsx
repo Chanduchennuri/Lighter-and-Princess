@@ -6,7 +6,6 @@ import { UserIdentity } from "./UserIdentity"
 import { RuntimeHealth } from "./RuntimeHealth"
 import { ThemePreset } from "./ThemePreset"
 import { BackgroundGrid } from "./BackgroundGrid"
-import { PhysicsBackground } from "./PhysicsBackground"
 import { StatusBar } from "./StatusBar"
 
 export type Page =
@@ -87,8 +86,6 @@ export function AppShell({
             =================================================== */}
 
         <BackgroundGrid />
-
-        <PhysicsBackground />
 
         {/* ===================================================
             APPLICATION LAYER

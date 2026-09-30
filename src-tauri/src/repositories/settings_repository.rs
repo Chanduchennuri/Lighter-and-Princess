@@ -215,32 +215,7 @@ impl SettingsRepository {
     // GET ONE SETTING
     // ========================================================
 
-    pub async fn get(
-        &self,
-        key: &str,
-    ) -> Result<Option<String>, String> {
-        let value =
-            sqlx::query_scalar::<
-                _,
-                String,
-            >(
-                r#"
-                SELECT value
-                FROM settings
-                WHERE key = ?
-                "#,
-            )
-            .bind(key)
-            .fetch_optional(
-                &self.database.pool,
-            )
-            .await
-            .map_err(|error| {
-                error.to_string()
-            })?;
 
-        Ok(value)
-    }
 
     // ========================================================
     // UPDATE ONE SETTING

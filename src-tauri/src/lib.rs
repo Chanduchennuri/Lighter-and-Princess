@@ -17,8 +17,49 @@ use tauri::{
     tauri::mobile_entry_point
 )]
 pub fn run() {
-    tauri::Builder::default()
+    let mut builder = tauri::Builder::default();
 
+    // ==================================================
+    // SINGLE INSTANCE
+    // ==================================================
+    //
+    // L&P must have only one running application instance.
+    //
+    // If the user launches L&P again while it is already
+    // running, the second instance is stopped by the plugin
+    // and the existing main window is brought back/focused.
+    //
+    // This is especially important because closing the main
+    // window only hides it so the Rust scheduler can continue
+    // running in the background.
+    //
+    // Supported by the official Tauri Single Instance plugin
+    // on desktop platforms.
+    //
+    #[cfg(desktop)]
+    {
+        builder = builder.plugin(
+            tauri_plugin_single_instance::init(
+                |app, _args, _cwd| {
+                    if let Some(window) =
+                        app.get_webview_window("main")
+                    {
+                        // The main window may have been hidden
+                        // when the user previously clicked X.
+                        let _ = window.show();
+
+                        // Bring it back if it was minimized.
+                        let _ = window.unminimize();
+
+                        // Bring the existing instance to the front.
+                        let _ = window.set_focus();
+                    }
+                },
+            ),
+        );
+    }
+
+    builder = builder
         // ==================================================
         // KEEP APPLICATION ALIVE WHEN MAIN WINDOW CLOSES
         // ==================================================
@@ -198,12 +239,13 @@ pub fn run() {
                 commands::get_app_settings,
                 commands::update_app_setting,
             ],
-        )
+        );
 
-        // ==================================================
-        // RUN
-        // ==================================================
+    // ==================================================
+    // RUN
+    // ==================================================
 
+    builder
         .run(
             tauri::generate_context!()
         )
@@ -211,3 +253,4 @@ pub fn run() {
             "error while running tauri application"
         );
 }
+

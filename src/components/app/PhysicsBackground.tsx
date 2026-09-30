@@ -465,7 +465,7 @@ export function PhysicsBackground() {
     <canvas
       ref={canvasRef}
       aria-hidden="true"
-      className="pointer-events-none absolute inset-0 z-[1] h-full w-full"
+      className="pointer-events-none absolute inset-0 h-full w-full"
     />
   )
 }
