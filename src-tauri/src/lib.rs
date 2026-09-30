@@ -50,7 +50,7 @@ pub fn run() {
 
                         // Bring it back if it was minimized.
                         let _ = window.unminimize();
-
+                        let _ = window.maximize();
                         // Bring the existing instance to the front.
                         let _ = window.set_focus();
                     }
