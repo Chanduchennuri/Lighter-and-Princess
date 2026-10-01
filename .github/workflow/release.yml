@@ -1,0 +1,61 @@
+name: Release LunarFlow
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-windows:
+    name: Build LunarFlow for Windows
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Rust cache
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: "./src-tauri -> target"
+
+      - name: Install frontend dependencies
+        run: npm ci
+
+      - name: Build and release LunarFlow
+        uses: tauri-apps/tauri-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: lunarflow-v__VERSION__
+          releaseName: LunarFlow v__VERSION__
+          releaseBody: |
+            # LunarFlow v__VERSION__
+
+            ## Windows
+
+            Download the Windows installer from the assets below.
+
+            ## Installation
+
+            1. Download the `.exe` installer.
+            2. Run the installer.
+            3. Follow the installation instructions.
+            4. Launch LunarFlow.
+
+            ## Source Code
+
+            https://github.com/${{ github.repository }}
+
+          releaseDraft: true
+          prerelease: false
