@@ -46,7 +46,7 @@ export function AppHeader() {
                 text-[#172033]
               "
             >
-              Lighter & Princess
+              LunarFlow``
             </span>
 
             
@@ -64,7 +64,7 @@ export function AppHeader() {
               text-slate-400
             "
           >
-            Personal Reminder Workspace
+            Plan your Task's Smartly..
           </p>
 
         </div>
